@@ -2,12 +2,9 @@ package ch.whip.round.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +23,11 @@ public class RegisterController {
     @Value("${paymit.endpoint}")
     private String paymitEndpoint;
 
-    @RequestMapping(path = "/register/{token}", method = RequestMethod.POST)
-    public ResponseEntity<String> signUpWithPhoneNumber(@PathVariable String token, @RequestBody UserRegistration userRegistration, HttpSession httpSession) throws URISyntaxException {
-        LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("registrationtoken", token);
-        RequestEntity<UserRegistration> request = new RequestEntity<UserRegistration>(userRegistration, headers, HttpMethod.PUT, new URI(paymitEndpoint + "signin/register/finish/"));
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public ResponseEntity<String> signUpWithPhoneNumber(@RequestBody UserRegistration userRegistration, HttpSession httpSession) throws URISyntaxException {
+        RequestEntity<UserRegistration> request = RequestEntity.put(new URI(paymitEndpoint + "signin/register/finish/"))
+                .header("registrationtoken", httpSession.getAttribute(SessionToken.REGISTRATION_TOKEN.getName()).toString())
+                .body(userRegistration);
         ResponseEntity<Id> response = restOperations.exchange(request, Id.class);
 
         Id id = response.getBody();
@@ -43,7 +40,7 @@ public class RegisterController {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
 
-        httpSession.setAttribute("userPaymitToken", usertoken.get(0));
+        httpSession.setAttribute(SessionToken.USER_TOKEN.getName(), usertoken.get(0));
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
