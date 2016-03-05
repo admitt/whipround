@@ -2,9 +2,11 @@ package ch.whip.round.transaction;
 
 import ch.whip.round.account.GroupAccount;
 import ch.whip.round.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,8 @@ public class Transaction implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     private GroupAccount groupAccount;
 
     @Column(nullable = false)

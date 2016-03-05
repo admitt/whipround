@@ -1,5 +1,7 @@
 package ch.whip.round.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ public class Member implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String username;
 
     @Column(nullable = false)
@@ -22,6 +25,7 @@ public class Member implements Serializable {
     private String lastName;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String email;
 
     public Long getId() {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,5 +21,13 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setMember(member);
         transactionRepository.save(transaction);
+    }
+
+    public BigDecimal accountBalance(GroupAccount groupAccount) {
+        return transactionRepository.accountBalance(groupAccount);
+    }
+
+    public List<Transaction> findAccountTransactions(GroupAccount groupAccount) {
+        return transactionRepository.findByGroupAccount(groupAccount);
     }
 }
