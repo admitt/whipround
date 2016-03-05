@@ -3,7 +3,7 @@ package ch.whip.round.member;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +14,7 @@ public class GroupMembers implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
+    @OneToMany
     private Collection<Member> members = new ArrayList<Member>();
 
     public Long getId() {
