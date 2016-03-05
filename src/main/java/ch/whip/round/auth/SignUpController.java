@@ -51,7 +51,7 @@ public class SignUpController {
             throw new IllegalStateException("no registration token present");
         }
 
-        session.setAttribute(SessionToken.REGISTRATION_TOKEN.getName(), headers.get("Registrationtoken").toString());
+        session.setAttribute(SessionToken.REGISTRATION_TOKEN.getName(), headers.get("Registrationtoken").get(0));
     }
 
     private List<String> getSessionToken(ResponseEntity<SignUp> response) {
