@@ -33,6 +33,7 @@ public class SignUpController {
             return new ResponseEntity<SignUp>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        session.setAttribute(SessionToken.USERNAME_TOKEN.getName(), phoneNumber);
         session.setAttribute(SessionToken.SESSION_TOKEN.getName(), token.iterator().next());
         return new ResponseEntity<SignUp>(response.getBody(), HttpStatus.OK);
     }

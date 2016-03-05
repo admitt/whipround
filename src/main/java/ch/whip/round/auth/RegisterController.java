@@ -1,5 +1,6 @@
 package ch.whip.round.auth;
 
+import ch.whip.round.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.List;
 public class RegisterController {
     @Autowired
     private RestOperations restOperations;
+    @Autowired
+    private MemberService memberService;
     @Value("${paymit.endpoint}")
     private String paymitEndpoint;
 
@@ -42,6 +45,9 @@ public class RegisterController {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
 
+        memberService.save(httpSession.getAttribute(SessionToken.USERNAME_TOKEN.getName()).toString(),
+                userRegistration.getFirstname(), userRegistration.getLastname(),
+                userRegistration.getEmail());
         httpSession.setAttribute(SessionToken.USER_TOKEN.getName(), usertoken.get(0));
         return new ResponseEntity<String>(HttpStatus.OK);
     }
