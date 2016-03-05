@@ -28,7 +28,7 @@ public class GroupAccountController {
         groupAccountService.createGroupAccount(manager, reason);
     }
 
-    @RequestMapping(value = "/{accountId}/add/member/{memberId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{account}/add/member/{member}", method = RequestMethod.POST)
     public void addMember(@PathVariable Member member, @PathVariable GroupAccount account) {
         groupAccountService.addMember(member, account);
     }

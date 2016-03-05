@@ -1,15 +1,12 @@
 package ch.whip.round.account;
 
-import ch.whip.round.member.GroupMembers;
 import ch.whip.round.member.Member;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 @Entity
@@ -22,9 +19,6 @@ public class GroupAccount implements Serializable {
 
     @ManyToOne
     private Member manager;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private GroupMembers members = new GroupMembers();
 
     @Column(nullable = false)
     private String reason;
@@ -43,14 +37,6 @@ public class GroupAccount implements Serializable {
 
     public void setManager(Member manager) {
         this.manager = manager;
-    }
-
-    public GroupMembers getMembers() {
-        return members;
-    }
-
-    public void setMembers(GroupMembers members) {
-        this.members = members;
     }
 
     public String getReason() {
