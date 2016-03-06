@@ -13,7 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Component
-class PaymitInvoker {
+class PaymitAPI {
 
     @Value("${paymit.endpoint}")
     private String paymitEndpoint;
@@ -33,6 +33,29 @@ class PaymitInvoker {
             return restOperations.exchange(RequestEntity.get(new URI(paymitEndpoint + "signin/register/" + smsCode + '/'))
                     .header("sessiontoken", sessiontoken)
                     .build(), String.class);
+        } catch (HttpClientErrorException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    ResponseEntity<Id> login(String smsCode, String sessiontoken) throws URISyntaxException {
+        try {
+            RequestEntity<Void> request = RequestEntity.get(new URI(paymitEndpoint + "signin/login/" + smsCode + '/'))
+                    .header("sessiontoken", sessiontoken)
+                    .build();
+            return restOperations.exchange(request, Id.class);
+        } catch (HttpClientErrorException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+
+    ResponseEntity<Id> register(UserRegistration userRegistration, String registrationToken) throws URISyntaxException {
+        try {
+            RequestEntity<UserRegistration> request = RequestEntity.put(new URI(paymitEndpoint + "signin/register/finish/"))
+                    .header("registrationtoken", registrationToken)
+                    .body(userRegistration);
+            return restOperations.exchange(request, Id.class);
         } catch (HttpClientErrorException e) {
             throw new IllegalStateException(e);
         }

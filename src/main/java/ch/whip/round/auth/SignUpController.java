@@ -19,7 +19,7 @@ import java.util.List;
 public class SignUpController {
 
     @Autowired
-    PaymitInvoker paymitInvoker;
+    PaymitAPI paymitInvoker;
 
     @RequestMapping(path = "/signup/{phoneNumber}", method = RequestMethod.GET)
     public ResponseEntity<SignUp> signUpWithPhoneNumber(@PathVariable String phoneNumber, HttpSession session) {
