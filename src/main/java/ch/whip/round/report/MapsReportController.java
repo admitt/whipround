@@ -64,4 +64,17 @@ public class MapsReportController {
             return new ResponseEntity<byte[]>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @RequestMapping(path = "/report/link/{reportId}", method = RequestMethod.GET)
+    public String linkReport(@PathVariable int reportId)
+    {
+        try
+        {
+            return new URL(StaticMapsUrl + QueryImageParams + QueryCenter + QueryMarkers).toString();
+        }
+        catch (MalformedURLException ex)
+        {
+            throw new IllegalStateException("Map url is malformed");
+        }
+    }
 }
