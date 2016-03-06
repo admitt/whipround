@@ -148,3 +148,26 @@ Response:
 ```
 [{"id":777,"manager":{"id":888,"firstName":"Esimene","lastName":"Laps"},"reason":"trip to Zurich"}]
 ```
+
+## Report
+#### */report/map?group={group id}
+Method: **GET**
+Request params:
+```
+group Integer - group id
+```
+Response:
+```
+google map image/jpg with track transactions
+```
+
+#### */report/link?group={group id}
+Method: **GET**
+Request params:
+```
+group Integer - group id
+```
+Response:
+```
+google map link with trrack transactions
+```
