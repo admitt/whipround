@@ -31,6 +31,12 @@ public class Transaction implements Serializable {
     @Column(nullable = false)
     private String currencyCode = "CHF";
 
+    @Column(nullable = true)
+    private String geocode;
+
+    @Column(nullable = true)
+    private String details;
+
     @ManyToOne
     private Member member;
 
@@ -73,4 +79,16 @@ public class Transaction implements Serializable {
     public void setMember(Member member) {
         this.member = member;
     }
+
+    public String getGeocode() {
+        return geocode;
+    }
+
+    public void setGeocode(String geocode) { this.geocode = geocode; }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) { this.details = details; }
 }
