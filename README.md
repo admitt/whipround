@@ -17,6 +17,7 @@ Response:
 ```
 {"smscode":5470,"type":"register"}
 ```
+> NB! sms code returned for demo purposes only
 
 #### */signin/register/5470*
 Method: **POST**
@@ -47,6 +48,7 @@ Response:
 ```
 {"smscode":8780,"type":"login"}
 ```
+> NB! sms code returned for demo purposes only
 
 #### */login/8780*
 
