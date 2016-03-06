@@ -15,13 +15,14 @@ public class MemberService {
     @Autowired
     private GroupMemberRepository groupMemberRepository;
 
-    public void save(String username, String firstName, String lastName, String email) {
+    public Long save(String username, String firstName, String lastName, String email) {
         Member member = new Member();
         member.setUsername(username);
         member.setFirstName(firstName);
         member.setLastName(lastName);
         member.setEmail(email);
         memberRepository.save(member);
+        return member.getId();
     }
 
     public List<GroupMember> groupMembers(GroupAccount account) {
@@ -37,5 +38,13 @@ public class MemberService {
 
     List<GroupAccount> findGroups(Member member) {
         return groupMemberRepository.findGroups(member);
+    }
+
+    public long findUserId(String username) {
+        Member byUsername = memberRepository.findByUsername(username);
+        if (byUsername == null) {
+            throw new IllegalStateException("Not able to find a member");
+        }
+        return byUsername.getId();
     }
 }

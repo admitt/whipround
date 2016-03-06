@@ -1,6 +1,6 @@
 INSERT INTO PUBLIC.MEMBER(ID, EMAIL, FIRST_NAME, LAST_NAME, USERNAME) VALUES
-(888, 'first@laps.ch', 'Esimene', 'Laps', '+410000004'),
-(999, 'second@laps.ch', 'Teine', 'laps', '+410000005');
+(888, 'first@laps.ch', 'Esimene', 'Laps', '+410000008'),
+(999, 'second@laps.ch', 'Teine', 'laps', '+410000009');
 
 INSERT INTO PUBLIC.GROUP_ACCOUNT(ID, REASON, MANAGER_ID) VALUES
 (777, 'trip to Zurich', 888);

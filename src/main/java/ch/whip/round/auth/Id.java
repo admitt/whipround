@@ -1,9 +1,16 @@
 package ch.whip.round.auth;
 
 public class Id {
-    private int id;
+    private long id;
 
-    public int getId() {
+    public Id(long id) {
+        this.id = id;
+    }
+
+    public Id() {
+    }
+
+    public long getId() {
         return id;
     }
 }

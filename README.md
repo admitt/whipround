@@ -32,7 +32,10 @@ Request body:
 ```
 {   "firstname": "name",   "lastname": "surname",   "email": "name@google.ch",   "pin": "1234" }
 ```
-Response: `http 200`
+Response:
+```
+ {"id":999}
+```
 
 ## Login(steps order)
 
@@ -49,7 +52,10 @@ Response:
 
 Method: **POST**
 
-Response: `http 200`
+Response:
+```
+ {"id":999}
+```
 
 ## Group account
 

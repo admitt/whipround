@@ -2,7 +2,6 @@ package ch.whip.round.auth;
 
 import ch.whip.round.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,24 +22,24 @@ public class RegisterController {
     private MemberService memberService;
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> signUpWithPhoneNumber(@RequestBody UserRegistration userRegistration, HttpSession httpSession) throws URISyntaxException {
+    public Id signUpWithPhoneNumber(@RequestBody UserRegistration userRegistration, HttpSession httpSession) throws URISyntaxException {
         String registrationToken = httpSession.getAttribute(SessionToken.REGISTRATION_TOKEN.getName()).toString();
         ResponseEntity<Id> response = paymitAPI.register(userRegistration, registrationToken);
 
         Id id = response.getBody();
         if (id == null || id.getId() == 0) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            throw new IllegalStateException("User registration failed");
         }
 
         List<String> usertoken = response.getHeaders().get("Usertoken");
         if (usertoken.isEmpty()) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            throw new IllegalStateException("No user token present");
         }
 
-        memberService.save(httpSession.getAttribute(SessionToken.USERNAME_TOKEN.getName()).toString(),
+        Long userId = memberService.save(httpSession.getAttribute(SessionToken.USERNAME_TOKEN.getName()).toString(),
                 userRegistration.getFirstname(), userRegistration.getLastname(),
                 userRegistration.getEmail());
         httpSession.setAttribute(SessionToken.USER_TOKEN.getName(), usertoken.get(0));
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new Id(userId);
     }
 }
