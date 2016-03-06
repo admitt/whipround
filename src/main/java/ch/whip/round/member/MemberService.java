@@ -35,7 +35,7 @@ public class MemberService {
         groupMemberRepository.save(groupMember);
     }
 
-    public List<GroupAccount> findGroups(Member member) {
+    List<GroupAccount> findGroups(Member member) {
         return groupMemberRepository.findGroups(member);
     }
 }

@@ -1,6 +1,8 @@
 package ch.whip.round.account;
 
+import ch.whip.round.member.GroupMember;
 import ch.whip.round.member.Member;
+import ch.whip.round.member.MemberService;
 import ch.whip.round.transaction.Transaction;
 import ch.whip.round.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class GroupAccountController {
     private GroupAccountService groupAccountService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void createAccount(@RequestParam Member manager, @RequestParam String reason) {
@@ -46,5 +50,10 @@ public class GroupAccountController {
     @RequestMapping(value = "/transactions", method = RequestMethod.POST)
     public List<Transaction> accountTransactions(@RequestParam GroupAccount group) {
         return transactionService.findAccountTransactions(group);
+    }
+
+    @RequestMapping(value = "/members", method = RequestMethod.GET)
+    public List<GroupMember> getMembers(@RequestParam GroupAccount group) {
+        return memberService.groupMembers(group);
     }
 }
