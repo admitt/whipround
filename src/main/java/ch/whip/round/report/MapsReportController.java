@@ -1,7 +1,6 @@
 package ch.whip.round.report;
 
 import ch.whip.round.account.GroupAccount;
-import ch.whip.round.account.GroupAccountService;
 import ch.whip.round.transaction.Transaction;
 import ch.whip.round.transaction.TransactionService;
 import org.apache.commons.io.IOUtils;
@@ -10,7 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -26,6 +29,7 @@ import java.util.List;
  * Created by dastep on 3/5/2016.
  */
 @RestController
+@CrossOrigin(origins = "*")
 public class MapsReportController {
 
     //Pending deactivation
